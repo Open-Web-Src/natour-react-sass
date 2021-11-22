@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: natour_img
+    container_name: natour
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3001:3000
+    volumes:
+      - .:/app
+      - exclusive-frontend:/app/node_modules
+    stdin_open: true
+    tty: true
+    networks:
+      - natour
+    command: npm start
+volumes:
+  exclusive-frontend:
+networks:
+  natour:
